@@ -1,25 +1,21 @@
-#!/usr/bin/python3
-""" Amenity Module for HBNB project """
-from sqlalchemy import Column, Table, String, ForeignKey
-from sqlalchemy.orm import relationship
+#!/usr/bin/python
+""" holds class Amenity"""
+import models
 from models.base_model import BaseModel, Base
+from os import getenv
+import sqlalchemy
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
-
-place_amenity = Table("place_amenity", Base.metadata,
-                      Column("place_id", String(60),
-                             ForeignKey("places.id"),
-                             primary_key=True,
-                             nullable=False),
-                      Column("amenity_id", String(60),
-                             ForeignKey("amenities.id"),
-                             primary_key=True,
-                             nullable=False))
 
 class Amenity(BaseModel, Base):
-    """the class for Amenity
-    Attributes:
-        name: input name
-    """
-    __tablename__ = "amenities"
-    name = Column(String(128), nullable=False)
-    place_amenities = relationship("Place", secondary=place_amenity)
+    """Representation of Amenity """
+    if models.storage_t == 'db':
+        __tablename__ = 'amenities'
+        name = Column(String(128), nullable=False)
+    else:
+        name = ""
+
+    def __init__(self, *args, **kwargs):
+        """initializes Amenity"""
+        super().__init__(*args, **kwargs)
