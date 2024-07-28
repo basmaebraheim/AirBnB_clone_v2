@@ -4,6 +4,8 @@ import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from os import getenv
+import sqlalchemy
 
 if models.storage_t == 'db':
     place_amenity = Table('place_amenity', Base.metadata,
